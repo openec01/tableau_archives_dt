@@ -1,0 +1,106 @@
+Solution: Setup for Dataflow from local network for Tableau software on Reith Server/Client
+Requires git membership and elevated privilliges on your Reith client to install git
+git allows 1GB/month free after that its £1/1GB/month 
+
+
+PART 1
+
+# Setup git environment on local machine (Linux - yum install for RedHat based distro)
+sudo apt-get update
+sudo apt-get install git
+
+# Configure your git user
+git config --global user.name "your name"
+git config --global user.email "your@email.com"
+
+#Check that a profile was created
+git config --list
+
+# Make a directory for the git environment from where you'll stage changes and cd to the directory
+mkdir -p ~/git/tableau_data; cd ~/git/tableau_data
+
+# Copy the .csv files you want on tableau dashboard to the git environment
+cp /path/to/csv_files/* git/tableau_data
+
+# Initialise the git environment (you should be in git/tableau_data and all csv should be here )
+cd git/tableau_test
+git init
+
+# Stage changes for next commit - thi adds all files to newly created repository
+git add .
+
+# Commit the changes 
+git commit -a -m "Adding csv for data dashboard"
+
+# Push changes to remote server
+# PLEASE NOTE THAT I HAVE CONFIGURED A REMOTE CALLED tableau_archives_dt
+# The command adds a remote called origin and sets the URL to ssh://git@github.com/your_git_username/tableau_archives_dt.git
+git remote add origin ssh://git@github.com/your_git_username/tableau_archives_dt.git
+
+# Check list of remotes - 
+git remote -v
+
+# Push changes to "origin" remote server from your master branch
+git push origin master
+
+# For subsequent push to origin server
+git push
+
+# Configure crontab to run script every half an hour - adjust script to reflect your data source
+crontab -e
+
+*/10 * * * * /path/to/tableau_data.sh
+
+# what does the script do?
+cp -R original_csv/* git/tableau_data # copies csv files you want on dashboard to git environment
+cd git/tableau_data # change to git environment directory
+git add . # stage changes
+git commit -a -m "Adding csv for data dashboard" # commit changes
+git push # push changes to remote server (repo) from here we can clone to a Reith client machine
+
+
+
+
+PART 2 - Set up git environment on Windows Reith Client
+
+1) Install git for windows visit https://gitforwindows.org
+click through the defaults
+choose notepad editor and finish
+
+2) Open Git Bash from start menu
+3) Configure git user:
+git --config global user.name "your username"
+git --config --global user.email "your email"
+
+3) Change to directory where yo want Tableau to point to and rename the directory git - You will be cloning your data to this directory - 
+cd Desktop/git
+
+4) Initialize git repository
+git init
+
+5) Stage changes
+git add .
+
+6) Clone data repo
+Depending on what protocol youreusing:
+git clone ssh://git@github.com/your_git_username/tableau_archives_dt.git
+
+OR
+
+git clone https://git@github.com/your_git_username/tableau_archives_dt.git
+
+Going Further
+Automate the cloning process so that data available to tableau is always current
+
+Further Reading 
+ https://stackoverflow.com/questions/5377960/whats-the-best-practice-to-git-clone-into-an-existing-folder
+
+
+
+
+
+
+
+
+
+
