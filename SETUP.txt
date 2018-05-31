@@ -1,7 +1,7 @@
-Solution: Setup for Dataflow from local network for Tableau software on Reith Server/Client
-Requires git membership and elevated privilliges on your Reith client to install git
-git allows 1GB/month free after that its £1/1GB/month 
-
+Solution 
+Setup for Dataflow from local network for Tableau software on Reith Server/Client
+Requires git membership and elevated privilleges on your laptop to install git
+git allows 1GB/month
 
 PART 1
 
@@ -23,19 +23,18 @@ mkdir -p ~/git/tableau_data; cd ~/git/tableau_data
 cp /path/to/csv_files/* git/tableau_data
 
 # Initialise the git environment (you should be in git/tableau_data and all csv should be here )
-cd git/tableau_test
+cd git/tableau_data
 git init
 
-# Stage changes for next commit - thi adds all files to newly created repository
+# Stage changes for next commit - this adds all files to newly created repository
 git add .
 
 # Commit the changes 
 git commit -a -m "Adding csv for data dashboard"
 
 # Push changes to remote server
-# PLEASE NOTE THAT I HAVE CONFIGURED A REMOTE CALLED tableau_archives_dt
 # The command adds a remote called origin and sets the URL to ssh://git@github.com/your_git_username/tableau_archives_dt.git
-git remote add origin ssh://git@github.com/your_git_username/tableau_archives_dt.git
+git remote add origin ssh://git@github.com/your_git_username/tableau_data.git
 
 # Check list of remotes - 
 git remote -v
@@ -83,11 +82,11 @@ git add .
 
 6) Clone data repo
 Depending on what protocol youreusing:
-git clone ssh://git@github.com/your_git_username/tableau_archives_dt.git
+git clone ssh://git@github.com/your_git_username/tableau_data.git
 
 OR
 
-git clone https://git@github.com/your_git_username/tableau_archives_dt.git
+git clone https://git@github.com/your_git_username/tableau_data.git
 
 Going Further
 Automate the cloning process so that data available to tableau is always current
