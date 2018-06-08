@@ -81,7 +81,7 @@ git init
 git add .
 
 6) Clone data repo
-Depending on what protocol youreusing:
+t config --global user.nameDepending on what protocol youreusing:
 git clone ssh://git@github.com/your_git_username/tableau_data.git
 
 OR
